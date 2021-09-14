@@ -1,5 +1,5 @@
 from Views.index import getFirstResponse, getInsertResponse, getQueryLinguagemEntry, getQueryResponse
-from Controller.controller import controllerPrintLinguagem, controllerProgramadorLinguagem
+from Controller.controller import controllerPrintTableOne, controllerPrintTableFour, controllerProgramadorLinguagem
 from SQLCommands.dmlManipulation import returnInsertProgramador, returnValueProgramador, returnInsertProgramadorLinguagem
 from SQLCommands.ddlDefinition import createTableDesafio, createTableEncontro, createTableEncontroProgramador, createTableLinguagem, createTableProgramador, createTableProgramadorLinguagem
 from SQLCommands.dqlQuery import returnQueryLinguagem, returnQueryLinguagens
@@ -23,7 +23,6 @@ createTableEncontroProgramador()
 
 # # 0 TELA DE INTRODUÇÃO
 firstResponse = getFirstResponse()
-print(firstResponse)
 
 # # 1 INSERÇÃO DE DADOS
 if firstResponse == 1:
@@ -85,19 +84,18 @@ if firstResponse == 3:
     if queryResponse == 1:
         queryLinguagens = returnQueryLinguagens()
         cursor.execute(queryLinguagens)
+        controllerPrintTableOne(cursor, "# Linguagens cadastradas na plataforma #")
         cnx.commit()
-        controllerPrintLinguagem(cursor)
     
 # 4.2 Visualizar desafios por linguagem
     if queryResponse == 2:
         queryLinguagemEntry = getQueryLinguagemEntry()
         queryLinguagem = returnQueryLinguagem()
         cursor.execute(queryLinguagem.format(queryLinguagemEntry))
+        controllerPrintTableFour(cursor, "Id Desafio", "Linguagem", "Título", "Criado Por")
         cnx.commit()
-        for (desafio) in cursor:
-            print(desafio)
 
 
-cursor.close()
+
 cnx.close
 
