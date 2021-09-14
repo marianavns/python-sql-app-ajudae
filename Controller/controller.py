@@ -26,6 +26,12 @@ def controllerProgramadorLinguagem (pk_Username) :
 
     return languagesKnowledgesValues
 
-def controllerPrintLinguagem (cursor) :
-    for (linguagem) in cursor:
-            print(linguagem)
+def controllerPrintTableOne (x, columnA) :
+    print("\t\n%s" % columnA)
+    for columnA in x:
+        print("%s" % columnA)
+
+def controllerPrintTableFour(x, columnA, columnB, columnC, columnD) :
+    print("\n{:<15} {:<15} {:<25} {:<6}".format(columnA, columnB, columnC, columnD))
+    for (columnA, columnB, columnC, columnD) in x:
+        print("{:<15} {:<15} {:<25} {:<6}".format(columnA, columnB, columnC, columnD))
