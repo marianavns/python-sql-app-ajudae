@@ -1,8 +1,7 @@
 from Views.index import getFirstResponse, getInsertResponse, getQueryLinguagemEntry, getQueryResponse
 from Controller.controller import controllerPrintTableOne, controllerPrintTableFour, controllerProgramadorLinguagem
-from SQLCommands.dmlManipulation import returnInsertProgramador, returnValueProgramador, returnInsertProgramadorLinguagem
+from SQLCommands.dmlManipulation import returnInsertProgramador, returnValueProgramador, returnInsertProgramadorLinguagem, returnQueryLinguagem, returnQueryLinguagens
 from SQLCommands.ddlDefinition import createTableDesafio, createTableEncontro, createTableEncontroProgramador, createTableLinguagem, createTableProgramador, createTableProgramadorLinguagem
-from SQLCommands.dqlQuery import returnQueryLinguagem, returnQueryLinguagens
 
 import mysql.connector
 
@@ -20,6 +19,7 @@ createTableProgramadorLinguagem()
 createTableDesafio()
 createTableEncontro()
 createTableEncontroProgramador()
+cnx.commit()
 
 # # 0 TELA DE INTRODUÇÃO
 firstResponse = getFirstResponse()
@@ -44,10 +44,12 @@ if firstResponse == 1:
         cursor.execute(insertProgramador,valueProgramador)
         cnx.commit()
 
-        insertProgramadorLinguagem = returnInsertProgramadorLinguagem()
-        languagesKnowledgesValues = controllerProgramadorLinguagem(username)
-        cursor.execute(insertProgramadorLinguagem, languagesKnowledgesValues)
-        cnx.commit()
+        #Cadastrar Linguagens do Programador
+        values = controllerProgramadorLinguagem(username)
+        requisicao = returnInsertProgramadorLinguagem()    
+        for x in range(len(values)) :
+            cursor.execute(requisicao.format(values[x]))
+            cnx.commit()
 
 # b) Cadastrar novo desafio        
     if insertResponse == 2:
@@ -57,7 +59,7 @@ if firstResponse == 1:
         title = input("\tInsira um breve título que descreva seu problema: ")
         errorIDE = input("\tSua IDE retorna algum erro? Se sim, insira: ")
         challengeLanguage = input("\tQual a linguagem de programação? ")
-        pk_Username = input("\tInsira seu username: ")
+        Username = input("\tInsira seu username: ")
 
         insertquery = (
             """INSERT INTO desafio(
@@ -68,7 +70,7 @@ if firstResponse == 1:
                 Criado_Por)
                 VALUES (%s, %s, %s, %s, %s)"""
         )
-        value = (title, description, errorIDE, challengeLanguage, pk_Username)
+        value = (title, description, errorIDE, challengeLanguage, Username)
         cursor.execute(insertquery, value)
         cnx.commit()
 

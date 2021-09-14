@@ -1,7 +1,7 @@
 def returnInsertProgramador () :
     insertProgramador = (
             """INSERT INTO programador(
-                pk_Username, 
+                Username, 
                 Email, 
                 Primeiro_Nome, 
                 Ultimo_Nome, 
@@ -19,6 +19,19 @@ def returnValueProgramador (username, email, primeiroNome, ultimoNome, senha, an
 
 def returnInsertProgramadorLinguagem () :
     insertProgramadorLinguagem = (
-            "INSERT programador_linguagem (Username, Linguagem, Nivel_de_Conhecimento) VALUES (%s)"
+            """INSERT INTO programador_linguagem (
+                Username, 
+                Linguagem, 
+                Nivel_de_Conhecimento
+            ) 
+            VALUES {}"""
         )
     return insertProgramadorLinguagem 
+
+def returnQueryLinguagens ():
+    queryLinguagens = "SELECT pk_Nome FROM aplicativoajudae.linguagem"
+    return queryLinguagens
+
+def returnQueryLinguagem ():
+    queryLinguagem = "SELECT idDesafio, Linguagem_Do_Desafio, Titulo, Criado_Por FROM aplicativoajudae.desafio WHERE Linguagem_Do_Desafio LIKE '%{}%' AND Solucionado = 0"
+    return queryLinguagem

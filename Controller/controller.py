@@ -1,30 +1,22 @@
-from Views.index import getLinguagens, getNivelDeConhecimento
+#from Views.index import getLinguagens, getNivelDeConhecimento
 
 
-def controllerProgramadorLinguagem (pk_Username) :
-    print("\t\t -> Digite as linguagens que você conhece: ")
-    languages = []
-    knowledge = []
+def controllerProgramadorLinguagem (a) :
+    print("\t\t-> Digite as linguagens que você conhece ")
+    linguagens = []
+    levels = []
 
-    i = 1
-    end = False
-    while end == False:
-        languages.append(input(getLinguagens (i)))
-        lastElement = languages[-1]
-        if lastElement != "FIM":
-            knowledge.append(input(getNivelDeConhecimento(i)))
-        if lastElement == "FIM":
-            end = True
-            del languages[-1]
-            languageValues = '%s' %'\'), (\''.join(map(str, languages))
-            knowledgeValues = '%s' %'\'), (\''.join(map(str, knowledge))
-        i += 1
-    languageKnowledge = ""
-    for x in range(len(languages)):
-        languageKnowledge+=("(\'%s\', \'%s\', \'%s\'), " %(pk_Username, str(languages[x]), str(knowledge[x])))
-    languagesKnowledgesValues = languageKnowledge[:-2]
+    linguagem = input("\t\tInsira a linguagem ou digite FIM: ")
+    while linguagem != "FIM":
+        linguagens.append(linguagem)
+        level = input("\t\tNível de Conhecimento: Iniciante, Intermediário ou Avançado? ")
+        levels.append(level)
+        linguagem = input("\t\tInsira a linguagem ou digite FIM: ")
 
-    return languagesKnowledgesValues
+    values = []
+    for x in range(len(levels)):
+        values.append("('{}', '{}', '{}')".format(a, linguagens[x], levels[x]))
+    return values
 
 def controllerPrintTableOne (x, columnA) :
     print("\t\n%s" % columnA)

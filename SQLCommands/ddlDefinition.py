@@ -13,14 +13,14 @@ def createTableProgramador() :
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS programador(
-            pk_Username VARCHAR(45) NOT NULL,
+            Username VARCHAR(45) NOT NULL,
             Email VARCHAR(45) NOT NULL UNIQUE,
             Primeiro_Nome VARCHAR(45) NOT NULL,
             Ultimo_Nome VARCHAR(45) NOT NULL,
             Senha VARCHAR(45) NOT NULL,
             Ano_de_Nascimento INT(4) NULL,
             Linkedin VARCHAR(100) NULL,
-            PRIMARY KEY (pk_Username)
+            PRIMARY KEY (Username)
         )
         """
     )
@@ -50,7 +50,7 @@ def createTableProgramadorLinguagem() :
                 "Intermediário",
                 "Avançado"
             ) NULL,
-            FOREIGN KEY (Username) REFERENCES programador(pk_Username),
+            FOREIGN KEY (Username) REFERENCES programador(Username),
             FOREIGN KEY (Linguagem) REFERENCES Linguagem(pk_Nome)
         )
         """
@@ -72,7 +72,7 @@ def createTableDesafio() :
             Criado_Por VARCHAR(45) NOT NULL,
             PRIMARY KEY (idDesafio),
             FOREIGN KEY (Linguagem_Do_Desafio) REFERENCES linguagem(pk_Nome),
-            FOREIGN KEY (Criado_Por) REFERENCES programador(pk_Username)
+            FOREIGN KEY (Criado_Por) REFERENCES programador(Username)
         )
         """
     )
@@ -89,9 +89,9 @@ def createTableEncontro() :
             Solicitado_Por VARCHAR(45) NOT NULL,
             Aceito_Por VARCHAR(45) NOT NULL,
             PRIMARY KEY (idEncontro),
-            FOREIGN KEY (Solicitado_Por) REFERENCES programador(pk_Username),
+            FOREIGN KEY (Solicitado_Por) REFERENCES programador(Username),
             FOREIGN KEY (Desafio_Origem) REFERENCES desafio(idDesafio),
-            FOREIGN KEY (Aceito_Por) REFERENCES programador(pk_Username)
+            FOREIGN KEY (Aceito_Por) REFERENCES programador(Username)
         )
         """
     )
@@ -104,7 +104,7 @@ def createTableEncontroProgramador() :
         CREATE TABLE IF NOT EXISTS encontro_programador(
             id_Encontro INT NOT NULL,
             Username VARCHAR(45) NOT NULL,
-            FOREIGN KEY (Username) REFERENCES programador(pk_Username),
+            FOREIGN KEY (Username) REFERENCES programador(Username),
             FOREIGN KEY (id_Encontro) REFERENCES encontro(idEncontro)
         )
         """
