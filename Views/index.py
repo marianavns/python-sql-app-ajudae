@@ -36,8 +36,7 @@ def getQueryResponse () :
     return queryResponse  
 
 def getQueryLinguagemEntry () :
-    queryLinguagemEntry = input("Você quer ver desafios de que linguagem? ")
-
+    queryLinguagemEntry = input("\n\tVocê quer ver desafios de que linguagem? ")
     return queryLinguagemEntry   
 
 
